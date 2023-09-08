@@ -30,7 +30,7 @@ const CardList: React.FC = () => {
 
   if (categoriesInfo) {
     return (
-            <Box display="flex" flexWrap="wrap">
+            <Box display="flex" flexWrap="wrap" width="100%" justifyContent="center">
             {categoriesInfo.map((cat: any, index: number) => <Card key={cat.title} id={cat.id} title={cat.title}  questions={cat.questions} icon={categoriesICON[index].icon}/> )      
         }
             </Box>

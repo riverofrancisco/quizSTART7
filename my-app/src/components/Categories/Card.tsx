@@ -11,6 +11,7 @@ import { Adder } from "../../redux/portfolio/actions";
 import Button from "@mui/material/Button";
 import { profile } from "../../data/data";
 import Profile from "../Profile/ProfileInfo";
+import Paper from '@mui/material/Paper';
 
 interface CatProperties {
 id: number;
@@ -26,24 +27,48 @@ const Card: React.FC<CatProperties> = ({id, title, questions, icon}) => {
   }, []);
 
   return (
-    <Grid container direction="row" mt={3}  bgcolor="#FAFAFA" border={2} sx={{ width: {sx:"40%", md: "20%"}, m: 2} }>
+    <Grid container flexDirection="row" mt={3}  border={2} sx={{ width: {xs:"40%", md: "30%"}, m: 2} }>
       <Grid
         item
         display="flex"
-        alignItems="center"
+        flexDirection="column"
+        
         justifyContent="center"
         border={1}
+        pl="8%"
+        sx={{
+          transition: "transform 0.3s ease-in-out",
+          "&:hover": {
+            transform: "scale(1.05)",
+            transitionDelay: "0.02s",
+          },
+          
+        }}
       >
-        <img src={icon} alt="catICON" width="50%"/>
-        </Grid>
-        <Grid item >
-        <Box display="flex" flexDirection="column" alignItems="center">
-              <Typography>{title}</Typography>
-            </Box>
-            <Box display="flex" flexDirection="column" alignItems="center">
-              <Typography>{`Questions`}</Typography>
-              <Typography variant="caption">{questions}</Typography>
-            </Box> 
+        <Box sx={{
+                    position: "relative",
+                    zIndex: 1
+        }}>
+        <img src={icon} alt="catICON" width="60%"/>
+        </Box>
+      
+        
+        <Paper elevation={12} sx={{
+          bgcolor: "white",
+          borderRadius: "10%",
+          mt: "-45%",
+          ml: "-5%",
+          pt: "55%",
+          pl: "5%",
+
+        }}>
+        <Typography gutterBottom>{title}</Typography>
+    
+    <Box display="flex" >
+      <Typography variant="caption" gutterBottom>{`${questions} Questions.`}</Typography>
+    </Box> 
+        </Paper>
+        
         </Grid>
                    
       
