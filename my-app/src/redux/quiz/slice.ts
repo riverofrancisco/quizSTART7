@@ -1,12 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export interface QuestionProperties {
+    id: number;
+    category: string;
+    question: string;
+    option1: string;
+    option2: string;
+    option3: string;
+    option4: string;
+  }
+
+
 interface InitialState {
-    value: number,
+    questions: QuestionProperties[],
     status: string,
 }
 
 const initialState: InitialState = {
-value: 0,
+questions: [],
 status: "ok",
 }
 
@@ -14,8 +25,8 @@ export const global = createSlice({
     name: "global",
 initialState,
 reducers: {
-    valueAdder: (state, {payload}) => {
-        state.value = state.value + payload
+    getQuestions: (state, {payload}) => {
+        state.questions = payload
     },
     changeStatus: (state, {payload}) => {
         if(state.status === "ok"){

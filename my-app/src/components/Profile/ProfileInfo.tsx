@@ -7,7 +7,6 @@ import Grid from "@mui/material/Grid";
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooksRedux";
-import { Adder } from "../../redux/portfolio/actions";
 import Button from "@mui/material/Button";
 import { profile } from "../../data/data";
 import Avatar from "@mui/material/Avatar";
@@ -15,7 +14,6 @@ import picture from "../../data/ProfileIMG.png";
 
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
-  const status = useAppSelector((state) => state.global.value);
 
   const [profileInfo, setProfileInfo] = useState<any | null>(null);
 
@@ -25,7 +23,6 @@ const Profile: React.FC = () => {
   };
 
   const handleClick = () => {
-    dispatch(Adder(1));
   };
 
   useEffect(() => {
@@ -86,7 +83,7 @@ const Profile: React.FC = () => {
       </Grid>
     );
   }
-  return <div>...</div>;
+  return <div>Loading...</div>;
 };
 
 export default Profile;

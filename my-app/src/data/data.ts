@@ -43,3 +43,19 @@ export const categoriesICON = [{
     icon: "https://s3-alpha-sig.figma.com/img/b05f/aec7/8e164eb214da407c390d61e6da677074?Expires=1694995200&Signature=mQtzU0WVVY9cHXguSvoiZ5WsYBUoc9obP8rLfOR9gsFtV3BFsDmsqbg~l~ruOModn1HZ00XSBbvLV7PvCvk~OQpevssvVkdWLxJt9D1qc92zt0U23ms2OidLpMRvwH~gVGXbsXtBtE-4baCZJ1aGHkUHyltpNYDI54vyVGtnQyiHn55fI9MC3r0lLCh7sHBqyBNm6owkMs9xrxq1oNL9XGfAaioUygSTONTXCetUsBLCb2-0IRQEVdVxpz54ALbTQGuZdpOWUk2iSxLpSBFkpAr-ANlY9x2XSJK7ZB9mulmbpxJwedyrWAsxsCOYwh6Lb5dYNaSXqzZcJQTFWJn50g__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
 }]
 
+//GET QUESTIONS
+
+
+export const questions = async (id: string) => {
+    const questionsInfoAppURL = `https://quiz-7.com/questions/${id.toString()}.json`
+    try{
+        const response = await axios.get(questionsInfoAppURL);
+        console.log(id)
+        console.log(typeof id)
+        const infoDeApp = response.data;
+        console.log('Información de la aplicación:', infoDeApp);
+        return infoDeApp;
+        } catch (error: any) {
+            throw new Error('Error al obtener el archivo:', error);
+        }
+    }
