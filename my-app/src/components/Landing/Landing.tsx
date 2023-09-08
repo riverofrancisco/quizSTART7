@@ -35,6 +35,7 @@ const LandingPage: React.FC = () => {
 
   return (
     <Grid container direction="row" mt={3} bgcolor="#FAFAFA">
+      <Profile />
       <Grid
         item
         xs={12}
@@ -43,7 +44,7 @@ const LandingPage: React.FC = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Profile />
+        
         <Box
           height={"55vh"}
           width="100%"

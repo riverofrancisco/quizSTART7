@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooksRedux";
 import { Adder } from "../../redux/portfolio/actions";
 import Button from "@mui/material/Button";
 import { profile } from "../../data";
+import Avatar from '@mui/material/Avatar';
 import picture from '../../data/ProfileIMG.png'
 
 const Profile: React.FC = () => {
@@ -36,20 +37,22 @@ const Profile: React.FC = () => {
       <Grid container direction="row" mt={3} bgcolor="#FAFAFA">
         <Grid
           item
-          xs={12}
-          md={6}
           display="flex"
           flexDirection="column"
           alignItems="center"
           justifyContent="center"
           border={2}
+          width="100%"
         >
-          <Grid item border={1} width="95%" display="flex" justifyContent="space-around">
-          <Typography>{`Hi, ${profileInfo.name}`}</Typography>
-          <img src={picture} alt="PIC"/>
+          <Grid item border={1} width="95%" display="flex" justifyContent="space-around" alignItems="center" py={1}>
+          <div>
+          <Typography variant="h6" gutterBottom>{`Hi, ${profileInfo.name}`}</Typography>
+          <Typography variant="caption">Let's make this day productive</Typography>
+            </div>
+            <Avatar alt="PIC" src={picture} />
           </Grid>
           
-          <Grid item border={1} width="95%" display="flex" justifyContent="space-evenly">
+          <Grid item border={1} width="95%" display="flex" justifyContent="space-evenly" py={1}>
             <Box>
               <Typography>{`Ranking`}</Typography>
               <Typography>{profileInfo.ranking}</Typography>
