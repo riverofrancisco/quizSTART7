@@ -8,9 +8,8 @@ import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRigh
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooksRedux";
 import Button from "@mui/material/Button";
-import { profile } from "../../data/data";
-import Profile from "../Profile/ProfileInfo";
-import Paper from "@mui/material/Paper";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
 
 interface QuestionProperties {
   id: number;
@@ -26,51 +25,122 @@ const QuestionsDash: React.FC = () => {
   const dispatch = useAppDispatch();
   const questions = useAppSelector((state) => state.global.questions);
 
-
   useEffect(() => {
-    console.log(questions)
+    console.log(questions);
   }, []);
 
-  if(questions.length > 0){
+  if (questions.length > 0) {
+    const options = ["option1", "option2", "option3", "option4"];
     return (
-
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        mt={3}
+        border={2}
+        sx={{ width: "100%" }}
+      >
         <Grid
-            container
-            flexDirection="column"
-            mt={3}
-            border={2}
-            sx={{ width: { xs: "40%", md: "30%" }, m: 2 }}
+          item
+          display="flex"
+          flexDirection="column"
+          sx={{ width: { xs: "90%", sm: "80%", md: "60%" } }}
+        >
+          <Grid
+            item
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              py: 10,
+              my: 5,
+              border: 1,
+              borderRadius: "5%",
+            }}
           >
-      
-          <Grid item>
-              {questions[0].question}
+            {questions[0].question}
           </Grid>
-      
-            <Grid
-              item
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-              border={1}
-              pl="8%"
-              sx={{
-                transition: "transform 0.3s ease-in-out",
-                "&:hover": {
-                  transform: "scale(1.05)",
-                  transitionDelay: "0.02s",
-                },
-              }}
-            >
-         
-            </Grid>
+
+          <Grid
+            item
+            display="flex"
+            justifyContent="space-around"
+            border={3}
+            borderRadius={3}
+            py={2}
+            my={1}
+            sx={{
+              transition: "transform 0.3s ease-in-out",
+              "&:hover": {
+                transform: "scale(1.05)",
+                transitionDelay: "0.02s",
+              },
+            }}
+          >
+            <Typography>{questions[0].option1}</Typography>
           </Grid>
-        ); 
+          <Grid
+                       item
+                       display="flex"
+                       justifyContent="space-around"
+                       border={3}
+                       borderRadius={3}
+                       py={2}
+                       my={1}
+                       sx={{
+                         transition: "transform 0.3s ease-in-out",
+                         "&:hover": {
+                           transform: "scale(1.05)",
+                           transitionDelay: "0.02s",
+                         },
+                       }}
+          >
+            <Typography>{questions[0].option2}</Typography>
+          </Grid>
+          <Grid
+                       item
+                       display="flex"
+                       justifyContent="space-around"
+                       border={3}
+                       borderRadius={3}
+                       py={2}
+                       my={1}
+                       sx={{
+                         transition: "transform 0.3s ease-in-out",
+                         "&:hover": {
+                           transform: "scale(1.05)",
+                           transitionDelay: "0.02s",
+                         },
+                       }}
+          >
+            <Typography>{questions[0].option3}</Typography>
+          </Grid>
+          <Grid
+            item
+            display="flex"
+            justifyContent="space-around"
+            border={3}
+            borderRadius={3}
+            py={2}
+            my={1}
+            sx={{
+              transition: "transform 0.3s ease-in-out",
+              "&:hover": {
+                transform: "scale(1.05)",
+                transitionDelay: "0.02s",
+              },
+            }}
+          >
+            <Typography>{questions[0].option4}</Typography>
+          </Grid>
+          <Button variant="contained">Next</Button>
+        </Grid>
+
+       
+      </Grid>
+    );
   }
 
-  return (
-    <div>Loading...</div>
-  )
-  
+  return <div>Loading...</div>;
 };
 
 export default QuestionsDash;
