@@ -15,12 +15,16 @@ interface InitialState {
     questions: QuestionProperties[],
     status: string,
     points: number,
+    answers: number,
+    currentQuestion: number
 }
 
 const initialState: InitialState = {
 questions: [],
 status: "ok",
-points: 0
+points: 0,
+answers: 0,
+currentQuestion: 0
 }
 
 export const global = createSlice({
@@ -38,7 +42,13 @@ reducers: {
             state.status = "loading"
         } if(state.status === "loading")
         state.status = "ok"
-    }
+    },
+    addAnswers: (state) => {
+        state.answers = state.answers + 1
+    },
+    nextQuestion: (state) => {
+        state.currentQuestion = state.currentQuestion + 1
+    },
 }
 
 })
