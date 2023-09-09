@@ -49,6 +49,11 @@ reducers: {
     nextQuestion: (state) => {
         state.currentQuestion = state.currentQuestion + 1
     },
+    resetValues: (state) => {
+        state.answers = 0;
+        state.currentQuestion = 0;
+        state.points = 0
+    },
 }
 
 })

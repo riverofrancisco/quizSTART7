@@ -39,3 +39,12 @@ export const nextQuestionChoser = (): ThunkAction<
 > => {return (dispatch) => {
     return dispatch(reducer.nextQuestion())
 }}
+
+export const reBoot = (): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  AnyAction
+> => {return (dispatch) => {
+    return dispatch(reducer.resetValues())
+}}

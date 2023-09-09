@@ -5,6 +5,8 @@ import Fab from "@mui/material/Fab";
 import { Box } from "@mui/system";
 import Grid from "@mui/material/Grid";
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooksRedux";
 import Button from "@mui/material/Button";
@@ -16,6 +18,7 @@ import {
   PointsAdder,
   answerAdder,
   nextQuestionChoser,
+  reBoot,
 } from "../../redux/quiz/actions";
 
 interface QuestionProperties {
@@ -45,9 +48,9 @@ const QuestionsDash: React.FC = () => {
         setAnswered(true);
         const element = document.getElementById(id);
         if (element) element.style.backgroundColor = "green";
-        dispatch(PointsAdder);
+        dispatch(PointsAdder());
         dispatch(answerAdder());
-      console.log(`Total Answers ${answersDone}`);
+        console.log(`Total Answers ${answersDone}`);
       } else {
         console.log(isCorrect);
         console.log("Wrong Answer");
@@ -55,28 +58,50 @@ const QuestionsDash: React.FC = () => {
         if (element) element.style.backgroundColor = "red";
         setAnswered(true);
         dispatch(answerAdder());
-      console.log(`Total Answers ${answersDone}`);
+        console.log(`Total Answers ${answersDone}`);
       }
-      
     }
   };
 
   const handleNext = () => {
-    if (currentQ < 3){
-        dispatch(nextQuestionChoser())
-        console.log(currentQ)
-        setAnswered(false)
-        
+    if (currentQ <= 3) {
+      dispatch(nextQuestionChoser());
+      console.log(currentQ);
+      setAnswered(false);
     } else {
-        window.alert(`You've done with this Category. You've scored ${points} points.`)
+      window.alert(
+        `You've done with this Category. You've scored ${points} points.`
+      );
+      dispatch(reBoot());
     }
-  }
+  };
 
   useEffect(() => {
     console.log(questions);
   }, []);
 
-  if (questions.length > 0) {
+  if (currentQ > 3) {
+    return (
+        <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <Alert
+          severity="success"
+          sx={{
+            width: "80%",
+            mt: 10,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}>
+          <AlertTitle>Congratulations!</AlertTitle>
+          You've done with this Category! Your score is
+          <strong> {points}</strong> points.
+        </Alert>
+      </Box>
+    );
+  } else if (questions.length > 0 && currentQ <= 3) {
     const options = [
       { class: "yes", op: questions[currentQ].option1 },
       { class: "no", op: questions[currentQ].option2 },
@@ -87,6 +112,7 @@ const QuestionsDash: React.FC = () => {
     return (
       <Grid
         container
+        bgcolor="whitesmoke"
         justifyContent="center"
         alignItems="center"
         mt={3}
@@ -125,6 +151,7 @@ const QuestionsDash: React.FC = () => {
               py={2}
               my={1}
               sx={{
+                bgcolor: "white",
                 transition: "transform 0.3s ease-in-out",
                 "&:hover": {
                   transform: "scale(1.05)",
@@ -138,7 +165,11 @@ const QuestionsDash: React.FC = () => {
           ))}
 
           {answered ? (
-            <Button variant="contained" sx={{ my: 3, py: 1 }} onClick={handleNext}>
+            <Button
+              variant="contained"
+              sx={{ my: 3, py: 1 }}
+              onClick={handleNext}
+            >
               Next
             </Button>
           ) : (
@@ -149,9 +180,27 @@ const QuestionsDash: React.FC = () => {
         </Grid>
       </Grid>
     );
+  } else {
+    return (
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <Alert
+          severity="info"
+          sx={{
+            width: "80%",
+            mt: 10,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <AlertTitle>Loading...</AlertTitle>
+        </Alert>
+      </Box>
+    );
   }
-
-  return <div>Loading...</div>;
 };
 
 export default QuestionsDash;

@@ -13,7 +13,7 @@ import Profile from "../Profile/ProfileInfo";
 import Paper from "@mui/material/Paper";
 
 import { questions as getQuestionCategory } from "../../data/data";
-import { QuestionsUpdater } from "../../redux/quiz/actions";
+import { QuestionsUpdater, reBoot } from "../../redux/quiz/actions";
 
 interface CatProperties {
   ID: number;
@@ -35,6 +35,7 @@ const Card: React.FC<CatProperties> = ({ ID, title, questions, icon }) => {
   //Select Category
   const handleClick = (id: number) => {
     getQuestionsInfo(id);
+    dispatch(reBoot())
   };
 
   useEffect(() => {}, []);
