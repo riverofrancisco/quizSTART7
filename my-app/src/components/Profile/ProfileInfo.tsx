@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import { profile } from "../../data/data";
 import Avatar from "@mui/material/Avatar";
 import picture from "../../data/ProfileIMG.png";
+import Paper from "@mui/material/Paper";
 
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -22,8 +23,7 @@ const Profile: React.FC = () => {
     setProfileInfo(info);
   };
 
-  const handleClick = () => {
-  };
+  const handleClick = () => {};
 
   useEffect(() => {
     getProfileInfo();
@@ -38,46 +38,62 @@ const Profile: React.FC = () => {
           flexDirection="column"
           alignItems="center"
           justifyContent="center"
-          border={2}
           width="100%"
         >
-          <Grid
-            item
-            border={1}
-            width="95%"
-            display="flex"
-            justifyContent="space-around"
-            alignItems="center"
-            py={1}
-          >
-            <div>
-              <Typography
-                variant="h6"
-                gutterBottom
-              >{`Hi, ${profileInfo.name}`}</Typography>
-              <Typography variant="caption">
-                Let's make this day productive
-              </Typography>
-            </div>
-            <Avatar alt="PIC" src={picture} />
+          <Grid item width="95%" py={1}>
+            <Paper
+              elevation={12}
+              sx={{
+                display: "flex",
+                justifyContent: "space-around",
+                alignItems: "center",
+                bgcolor: "white",
+                borderRadius: 2,
+                py: 1,
+              }}
+            >
+              <div>
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                >{`Hi, ${profileInfo.name}`}</Typography>
+                <Typography variant="caption">
+                  Let's make this day productive
+                </Typography>
+              </div>
+
+              <Avatar alt="PIC" src={picture} />
+            </Paper>
           </Grid>
 
           <Grid
             item
-            border={1}
             width="95%"
             display="flex"
             justifyContent="space-evenly"
             py={1}
           >
-            <Box display="flex" flexDirection="column" alignItems="center">
-              <Typography>{`Ranking`}</Typography>
-              <Typography>{profileInfo.ranking}</Typography>
-            </Box>
-            <Box display="flex" flexDirection="column" alignItems="center">
-              <Typography>{`Points`}</Typography>
-              <Typography>{profileInfo.points}</Typography>
-            </Box>
+            <Paper
+              elevation={12}
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-around",
+                alignItems: "center",
+                bgcolor: "white",
+                borderRadius: 2,
+                py: 1,
+              }}
+            >
+              <Box display="flex" flexDirection="column" alignItems="center">
+                <Typography>{`Ranking`}</Typography>
+                <Typography>{profileInfo.ranking}</Typography>
+              </Box>
+              <Box display="flex" flexDirection="column" alignItems="center">
+                <Typography>{`Points`}</Typography>
+                <Typography>{profileInfo.points}</Typography>
+              </Box>
+            </Paper>
           </Grid>
         </Grid>
       </Grid>
