@@ -12,3 +12,12 @@ export const QuestionsUpdater = (questions: QuestionProperties[]): ThunkAction<
 > => {return (dispatch) => {
     return dispatch(reducer.getQuestions(questions))
 }}
+
+export const PointsAdder = (): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  AnyAction
+> => {return (dispatch) => {
+    return dispatch(reducer.addPoints(10))
+}}

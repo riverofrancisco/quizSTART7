@@ -10,6 +10,9 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooksRedux";
 import Button from "@mui/material/Button";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import Oval from "../../data/Oval.svg";
+import { isDisabled } from "@testing-library/user-event/dist/utils";
+import { PointsAdder } from "../../redux/quiz/actions";
 
 interface QuestionProperties {
   id: number;
@@ -24,13 +27,37 @@ interface QuestionProperties {
 const QuestionsDash: React.FC = () => {
   const dispatch = useAppDispatch();
   const questions = useAppSelector((state) => state.global.questions);
+  const [answered, setAnswered] = useState(false);
+
+
+  const correctAnswer = (isCorrect: string, id: string) => {
+    if (answered) {
+        window.alert('You have already answered this question.')
+    } else {
+        if (isCorrect === "yes") {
+            console.log('Correct Answer')
+            setAnswered(true)
+            const element = document.getElementById(id);
+            if(element) element.style.backgroundColor = 'green';
+            dispatch(PointsAdder)
+            } else {
+                console.log(isCorrect)
+                console.log('Wrong Answer')
+                const element = document.getElementById(id);
+            if(element) element.style.backgroundColor = 'red';
+                setAnswered(true)
+            }
+    }
+    
+  }
 
   useEffect(() => {
     console.log(questions);
   }, []);
 
   if (questions.length > 0) {
-    const options = ["option1", "option2", "option3", "option4"];
+    const options = [{class: "yes", op: questions[0].option1}, {class: "no", op: questions[0].option2}, {class: "no", op: questions[0].option3}, {class: "no", op: questions[0].option4}];
+
     return (
       <Grid
         container
@@ -60,8 +87,10 @@ const QuestionsDash: React.FC = () => {
             {questions[0].question}
           </Grid>
 
-          <Grid
+            {options.map((option)=> <Grid
             item
+            key={option.op}
+            id={option.op}    
             display="flex"
             justifyContent="space-around"
             border={3}
@@ -75,67 +104,22 @@ const QuestionsDash: React.FC = () => {
                 transitionDelay: "0.02s",
               },
             }}
+            onClick={() => correctAnswer(option.class, option.op)}
           >
-            <Typography>{questions[0].option1}</Typography>
-          </Grid>
-          <Grid
-                       item
-                       display="flex"
-                       justifyContent="space-around"
-                       border={3}
-                       borderRadius={3}
-                       py={2}
-                       my={1}
-                       sx={{
-                         transition: "transform 0.3s ease-in-out",
-                         "&:hover": {
-                           transform: "scale(1.05)",
-                           transitionDelay: "0.02s",
-                         },
-                       }}
-          >
-            <Typography>{questions[0].option2}</Typography>
-          </Grid>
-          <Grid
-                       item
-                       display="flex"
-                       justifyContent="space-around"
-                       border={3}
-                       borderRadius={3}
-                       py={2}
-                       my={1}
-                       sx={{
-                         transition: "transform 0.3s ease-in-out",
-                         "&:hover": {
-                           transform: "scale(1.05)",
-                           transitionDelay: "0.02s",
-                         },
-                       }}
-          >
-            <Typography>{questions[0].option3}</Typography>
-          </Grid>
-          <Grid
-            item
-            display="flex"
-            justifyContent="space-around"
-            border={3}
-            borderRadius={3}
-            py={2}
-            my={1}
-            sx={{
-              transition: "transform 0.3s ease-in-out",
-              "&:hover": {
-                transform: "scale(1.05)",
-                transitionDelay: "0.02s",
-              },
-            }}
-          >
-            <Typography>{questions[0].option4}</Typography>
-          </Grid>
-          <Button variant="contained">Next</Button>
-        </Grid>
+            {option.op}
+          </Grid>)}
 
-       
+      
+          {answered ? (
+            <Button variant="contained" sx={{my:3, py:1}}>
+              Next
+            </Button>
+          ) : (
+            <Button variant="contained" disabled  sx={{my:3, py:1}}>
+              Next
+            </Button>
+          )}
+        </Grid>
       </Grid>
     );
   }

@@ -14,11 +14,13 @@ export interface QuestionProperties {
 interface InitialState {
     questions: QuestionProperties[],
     status: string,
+    points: number,
 }
 
 const initialState: InitialState = {
 questions: [],
 status: "ok",
+points: 0
 }
 
 export const global = createSlice({
@@ -27,6 +29,9 @@ initialState,
 reducers: {
     getQuestions: (state, {payload}) => {
         state.questions = payload
+    },
+    addPoints: (state, {payload}) => {
+        state.points = state.points + payload
     },
     changeStatus: (state, {payload}) => {
         if(state.status === "ok"){

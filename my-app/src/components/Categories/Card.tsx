@@ -27,7 +27,7 @@ const Card: React.FC<CatProperties> = ({ ID, title, questions, icon }) => {
 
   //questions by categorie
   const getQuestionsInfo = async (id: number) => {
-    const newID = id.toString()
+    const newID = id.toString();
     const info = await getQuestionCategory(newID);
     dispatch(QuestionsUpdater(info));
   };
@@ -36,9 +36,7 @@ const Card: React.FC<CatProperties> = ({ ID, title, questions, icon }) => {
   const handleClick = (id: number) => {
     getQuestionsInfo(id);
   };
-  
-  
-  
+
   useEffect(() => {}, []);
 
   return (
@@ -46,7 +44,6 @@ const Card: React.FC<CatProperties> = ({ ID, title, questions, icon }) => {
       container
       flexDirection="row"
       mt={3}
-      border={2}
       sx={{ width: { xs: "40%", md: "30%" }, m: 2 }}
     >
       <Grid
@@ -54,9 +51,10 @@ const Card: React.FC<CatProperties> = ({ ID, title, questions, icon }) => {
         display="flex"
         flexDirection="column"
         justifyContent="center"
-        border={1}
         pl="8%"
-        onClick={() => {handleClick(ID)}}
+        onClick={() => {
+          handleClick(ID);
+        }}
         sx={{
           transition: "transform 0.3s ease-in-out",
           "&:hover": {
@@ -64,38 +62,40 @@ const Card: React.FC<CatProperties> = ({ ID, title, questions, icon }) => {
             transitionDelay: "0.02s",
           },
         }}
-        
       >
-        <NavLink to={`/${ID}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-        <Box
-          sx={{
-            position: "relative",
-            zIndex: 1,
-          }}
+        <NavLink
+          to={`/${ID}`}
+          style={{ textDecoration: "none", color: "inherit" }}
         >
-          <img src={icon} alt="catICON" width="60%" />
-        </Box>
-
-        <Paper
-          elevation={12}
-          sx={{
-            bgcolor: "white",
-            borderRadius: "10%",
-            mt: "-45%",
-            ml: "-5%",
-            pt: "55%",
-            pl: "5%",
-          }}
-        >
-          <Typography gutterBottom>{title}</Typography>
-
-          <Box display="flex">
-            <Typography
-              variant="caption"
-              gutterBottom
-            >{`${questions} Questions.`}</Typography>
+          <Box
+            sx={{
+              position: "relative",
+              zIndex: 1,
+            }}
+          >
+            <img src={icon} alt="catICON" width="60%" />
           </Box>
-        </Paper>
+
+          <Paper
+            elevation={12}
+            sx={{
+              bgcolor: "white",
+              borderRadius: "10%",
+              mt: "-45%",
+              ml: "-5%",
+              pt: "55%",
+              pl: "5%",
+            }}
+          >
+            <Typography gutterBottom>{title}</Typography>
+
+            <Box display="flex">
+              <Typography
+                variant="caption"
+                gutterBottom
+              >{`${questions} Questions.`}</Typography>
+            </Box>
+          </Paper>
         </NavLink>
       </Grid>
     </Grid>
