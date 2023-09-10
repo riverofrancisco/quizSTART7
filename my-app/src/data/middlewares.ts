@@ -16,7 +16,7 @@ export const originalStyles = (element: HTMLElement) => {
     element.style.borderColor = '#737373';
 }
 
-interface Options {
+export interface Options {
     class: string,
     op: string,
 }

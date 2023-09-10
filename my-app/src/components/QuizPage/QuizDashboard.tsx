@@ -26,6 +26,7 @@ import {
   originalStyles,
   reorderArray,
 } from "../../data/middlewares";
+import { Options } from "../../data/middlewares";
 
 interface QuestionProperties {
   id: number;
@@ -45,6 +46,7 @@ const QuestionsDash: React.FC = () => {
   const points = useAppSelector((state) => state.global.points);
   const [answered, setAnswered] = useState(false);
   const [answeredItem, setAnsweredItem] = useState<HTMLElement | null>(null);
+  const [options, setOptions] = useState<Options[]>([]);
 
   const correctAnswer = (isCorrect: string, id: string) => {
     if (answered) {
@@ -92,7 +94,16 @@ const QuestionsDash: React.FC = () => {
 
   useEffect(() => {
     console.log(questions);
-  }, []);
+    if (questions && currentQ >= 0 && currentQ < questions.length) {
+      const prevOptions: Options[] = [
+        { class: "yes", op: questions[currentQ].option1 },
+        { class: "no", op: questions[currentQ].option2 },
+        { class: "no", op: questions[currentQ].option3 },
+        { class: "no", op: questions[currentQ].option4 },
+      ];
+      setOptions(reorderArray(prevOptions));
+    }
+  }, [questions, currentQ]);
 
   if (currentQ > 3) {
     return (
@@ -127,13 +138,9 @@ const QuestionsDash: React.FC = () => {
       </Box>
     );
   } else if (questions.length > 0 && currentQ <= 3) {
-    const options = [
-      { class: "yes", op: questions[currentQ].option1 },
-      { class: "no", op: questions[currentQ].option2 },
-      { class: "no", op: questions[currentQ].option3 },
-      { class: "no", op: questions[currentQ].option4 },
-    ];
 
+    
+   
 
     return (
       <Grid
@@ -164,7 +171,7 @@ const QuestionsDash: React.FC = () => {
             {questions[currentQ].question}
           </Grid>
 
-          {options && options.map((option) => (
+          {options.length > 0 && options.map((option) => (
             <Grid
               item
               key={option.op}
