@@ -20,6 +20,7 @@ import {
   nextQuestionChoser,
   reBoot,
 } from "../../redux/quiz/actions";
+import { isCorrectAnswer, isWrongAnswer, originalStyles } from "../../data/middlewares";
 
 interface QuestionProperties {
   id: number;
@@ -50,7 +51,7 @@ const QuestionsDash: React.FC = () => {
         const element = document.getElementById(id);
         if (element) {
           setAnsweredItem(element);
-          element.style.backgroundColor = "#DCF8FF";
+          isCorrectAnswer(element);
         }
         dispatch(PointsAdder());
         dispatch(answerAdder());
@@ -61,7 +62,8 @@ const QuestionsDash: React.FC = () => {
         const element = document.getElementById(id);
         if (element) {
           setAnsweredItem(element);
-          element.style.backgroundColor = "#FFDFDC";}
+          isWrongAnswer(element);
+        }
         setAnswered(true);
         dispatch(answerAdder());
         console.log(`Total Answers ${answersDone}`);
@@ -74,7 +76,7 @@ const QuestionsDash: React.FC = () => {
       dispatch(nextQuestionChoser());
       console.log(currentQ);
       setAnswered(false);
-      if (answeredItem) answeredItem.style.backgroundColor = "white"
+      if (answeredItem) originalStyles(answeredItem);
     } else {
       window.alert(
         `You've done with this Category. You've scored ${points} points.`
@@ -85,14 +87,17 @@ const QuestionsDash: React.FC = () => {
 
   useEffect(() => {
     console.log(questions);
-   
-
   }, []);
 
   if (currentQ > 3) {
     return (
       <Box
-        sx={{ display: "flex", flexDirection:"column", justifyContent: "center", alignItems: "center" }}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
         <Alert
           severity="success"
@@ -162,7 +167,8 @@ const QuestionsDash: React.FC = () => {
               id={`${option.class}-${option.op}`}
               display="flex"
               justifyContent="space-around"
-              border={3}
+              border={2}
+              borderColor="#737373"
               borderRadius={3}
               py={2}
               my={1}
