@@ -47,7 +47,7 @@ const QuestionsDash: React.FC = () => {
         console.log("Correct Answer");
         setAnswered(true);
         const element = document.getElementById(id);
-        if (element) element.style.backgroundColor = "green";
+        if (element) element.style.backgroundColor = "#DCF8FF";
         dispatch(PointsAdder());
         dispatch(answerAdder());
         console.log(`Total Answers ${answersDone}`);
@@ -55,7 +55,7 @@ const QuestionsDash: React.FC = () => {
         console.log(isCorrect);
         console.log("Wrong Answer");
         const element = document.getElementById(id);
-        if (element) element.style.backgroundColor = "red";
+        if (element) element.style.backgroundColor = "#FFDFDC";
         setAnswered(true);
         dispatch(answerAdder());
         console.log(`Total Answers ${answersDone}`);
@@ -82,7 +82,7 @@ const QuestionsDash: React.FC = () => {
 
   if (currentQ > 3) {
     return (
-        <Box
+      <Box
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <Alert
@@ -94,11 +94,17 @@ const QuestionsDash: React.FC = () => {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-          }}>
+          }}
+        >
           <AlertTitle>Congratulations!</AlertTitle>
           You've done with this Category! Your score is
           <strong> {points}</strong> points.
         </Alert>
+        <NavLink to={"/"} style={{ textDecoration: "none", color: "inherit" }}>
+          <Button variant="contained" color="info" sx={{ my: 3, py: 1 }}>
+            Go to Home Page
+          </Button>
+        </NavLink>
       </Box>
     );
   } else if (questions.length > 0 && currentQ <= 3) {
@@ -134,6 +140,7 @@ const QuestionsDash: React.FC = () => {
               my: 5,
               border: 1,
               borderRadius: "5%",
+              bgcolor: "#DCF8FF",
             }}
           >
             {questions[currentQ].question}
@@ -143,7 +150,7 @@ const QuestionsDash: React.FC = () => {
             <Grid
               item
               key={option.op}
-              id={option.op}
+              id={`${currentQ}-${option.op}`}
               display="flex"
               justifyContent="space-around"
               border={3}
@@ -158,7 +165,9 @@ const QuestionsDash: React.FC = () => {
                   transitionDelay: "0.02s",
                 },
               }}
-              onClick={() => correctAnswer(option.class, option.op)}
+              onClick={() =>
+                correctAnswer(option.class, `${currentQ}-${option.op}`)
+              }
             >
               {option.op}
             </Grid>
@@ -183,7 +192,12 @@ const QuestionsDash: React.FC = () => {
   } else {
     return (
       <Box
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
         <Alert
           severity="info"
@@ -198,6 +212,11 @@ const QuestionsDash: React.FC = () => {
         >
           <AlertTitle>Loading...</AlertTitle>
         </Alert>
+        <NavLink to={"/"} style={{ textDecoration: "none", color: "inherit" }}>
+          <Button variant="contained" color="info" sx={{ my: 3, py: 1 }}>
+            Go to Home Page
+          </Button>
+        </NavLink>
       </Box>
     );
   }
