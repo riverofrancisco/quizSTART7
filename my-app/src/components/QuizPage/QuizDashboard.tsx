@@ -38,6 +38,7 @@ const QuestionsDash: React.FC = () => {
   const answersDone = useAppSelector((state) => state.global.answers);
   const points = useAppSelector((state) => state.global.points);
   const [answered, setAnswered] = useState(false);
+  const [answeredItem, setAnsweredItem] = useState<HTMLElement | null>(null);
 
   const correctAnswer = (isCorrect: string, id: string) => {
     if (answered) {
@@ -47,7 +48,10 @@ const QuestionsDash: React.FC = () => {
         console.log("Correct Answer");
         setAnswered(true);
         const element = document.getElementById(id);
-        if (element) element.style.backgroundColor = "#DCF8FF";
+        if (element) {
+          setAnsweredItem(element);
+          element.style.backgroundColor = "#DCF8FF";
+        }
         dispatch(PointsAdder());
         dispatch(answerAdder());
         console.log(`Total Answers ${answersDone}`);
@@ -55,7 +59,9 @@ const QuestionsDash: React.FC = () => {
         console.log(isCorrect);
         console.log("Wrong Answer");
         const element = document.getElementById(id);
-        if (element) element.style.backgroundColor = "#FFDFDC";
+        if (element) {
+          setAnsweredItem(element);
+          element.style.backgroundColor = "#FFDFDC";}
         setAnswered(true);
         dispatch(answerAdder());
         console.log(`Total Answers ${answersDone}`);
@@ -68,6 +74,7 @@ const QuestionsDash: React.FC = () => {
       dispatch(nextQuestionChoser());
       console.log(currentQ);
       setAnswered(false);
+      if (answeredItem) answeredItem.style.backgroundColor = "white"
     } else {
       window.alert(
         `You've done with this Category. You've scored ${points} points.`
@@ -78,12 +85,14 @@ const QuestionsDash: React.FC = () => {
 
   useEffect(() => {
     console.log(questions);
+   
+
   }, []);
 
   if (currentQ > 3) {
     return (
       <Box
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+        sx={{ display: "flex", flexDirection:"column", justifyContent: "center", alignItems: "center" }}
       >
         <Alert
           severity="success"
@@ -109,10 +118,10 @@ const QuestionsDash: React.FC = () => {
     );
   } else if (questions.length > 0 && currentQ <= 3) {
     const options = [
-      { class: "yes", op: questions[currentQ].option1 },
-      { class: "no", op: questions[currentQ].option2 },
-      { class: "no", op: questions[currentQ].option3 },
-      { class: "no", op: questions[currentQ].option4 },
+      { class: "yes", op: questions[currentQ].option1, bgcolor: "white" },
+      { class: "no", op: questions[currentQ].option2, bgcolor: "white" },
+      { class: "no", op: questions[currentQ].option3, bgcolor: "white" },
+      { class: "no", op: questions[currentQ].option4, bgcolor: "white" },
     ];
 
     return (
@@ -150,7 +159,7 @@ const QuestionsDash: React.FC = () => {
             <Grid
               item
               key={option.op}
-              id={`${currentQ}-${option.op}`}
+              id={`${option.class}-${option.op}`}
               display="flex"
               justifyContent="space-around"
               border={3}
@@ -158,7 +167,7 @@ const QuestionsDash: React.FC = () => {
               py={2}
               my={1}
               sx={{
-                bgcolor: "white",
+                bgcolor: `${option.bgcolor}`,
                 transition: "transform 0.3s ease-in-out",
                 "&:hover": {
                   transform: "scale(1.05)",
@@ -166,7 +175,7 @@ const QuestionsDash: React.FC = () => {
                 },
               }}
               onClick={() =>
-                correctAnswer(option.class, `${currentQ}-${option.op}`)
+                correctAnswer(option.class, `${option.class}-${option.op}`)
               }
             >
               {option.op}
