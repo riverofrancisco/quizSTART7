@@ -40,30 +40,25 @@ const Profile: React.FC = () => {
           justifyContent="center"
           width="100%"
         >
-          <Grid item width="95%" py={1}>
-            <Paper
-              elevation={12}
-              sx={{
-                display: "flex",
-                justifyContent: "space-around",
-                alignItems: "center",
-                bgcolor: "white",
-                borderRadius: 2,
-                py: 1,
-              }}
-            >
-              <div>
-                <Typography
-                  variant="h6"
-                  gutterBottom
-                >{`Hi, ${profileInfo.name}`}</Typography>
-                <Typography variant="caption">
-                  Let's make this day productive
-                </Typography>
-              </div>
+          <Grid
+            item
+            width="95%"
+            py={1}
+            display="flex"
+            justifyContent="space-around"
+            alignItems="center"
+          >
+            <div>
+              <Typography
+                variant="h6"
+                gutterBottom
+              >{`Hi, ${profileInfo.name}`}</Typography>
+              <Typography variant="caption">
+                Let's make this day productive
+              </Typography>
+            </div>
 
-              <Avatar alt="PIC" src={picture} />
-            </Paper>
+            <Avatar alt="PIC" src={picture} />
           </Grid>
 
           <Grid
@@ -87,11 +82,25 @@ const Profile: React.FC = () => {
             >
               <Box display="flex" flexDirection="column" alignItems="center">
                 <Typography>{`Ranking`}</Typography>
-                <Typography>{profileInfo.ranking}</Typography>
+                <Typography
+                  sx={{
+                    color: "#3EB8D4",
+                    fontWeight: 700,
+                  }}
+                >
+                  {profileInfo.ranking}
+                </Typography>
               </Box>
               <Box display="flex" flexDirection="column" alignItems="center">
                 <Typography>{`Points`}</Typography>
-                <Typography>{profileInfo.points}</Typography>
+                <Typography
+                  sx={{
+                    color: "#3EB8D4",
+                    fontWeight: 700,
+                  }}
+                >
+                  {profileInfo.points}
+                </Typography>
               </Box>
             </Paper>
           </Grid>
