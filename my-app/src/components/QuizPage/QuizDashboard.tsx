@@ -20,7 +20,12 @@ import {
   nextQuestionChoser,
   reBoot,
 } from "../../redux/quiz/actions";
-import { isCorrectAnswer, isWrongAnswer, originalStyles } from "../../data/middlewares";
+import {
+  isCorrectAnswer,
+  isWrongAnswer,
+  originalStyles,
+  reorderArray,
+} from "../../data/middlewares";
 
 interface QuestionProperties {
   id: number;
@@ -115,7 +120,7 @@ const QuestionsDash: React.FC = () => {
           <strong> {points}</strong> points.
         </Alert>
         <NavLink to={"/"} style={{ textDecoration: "none", color: "inherit" }}>
-          <Button variant="contained" color="info" sx={{ my: 3, py: 1 }}>
+          <Button variant="contained" color="info" sx={{ my: 3, py: 1, borderRadius: 4  }}>
             Go to Home Page
           </Button>
         </NavLink>
@@ -123,20 +128,20 @@ const QuestionsDash: React.FC = () => {
     );
   } else if (questions.length > 0 && currentQ <= 3) {
     const options = [
-      { class: "yes", op: questions[currentQ].option1, bgcolor: "white" },
-      { class: "no", op: questions[currentQ].option2, bgcolor: "white" },
-      { class: "no", op: questions[currentQ].option3, bgcolor: "white" },
-      { class: "no", op: questions[currentQ].option4, bgcolor: "white" },
+      { class: "yes", op: questions[currentQ].option1 },
+      { class: "no", op: questions[currentQ].option2 },
+      { class: "no", op: questions[currentQ].option3 },
+      { class: "no", op: questions[currentQ].option4 },
     ];
+
 
     return (
       <Grid
         container
-        bgcolor="whitesmoke"
+        bgcolor="white"
         justifyContent="center"
         alignItems="center"
         mt={3}
-        border={2}
         sx={{ width: "100%" }}
       >
         <Grid
@@ -152,37 +157,34 @@ const QuestionsDash: React.FC = () => {
               justifyContent: "center",
               py: 10,
               my: 5,
-              border: 1,
-              borderRadius: "5%",
+              borderRadius: 4,
               bgcolor: "#DCF8FF",
             }}
           >
             {questions[currentQ].question}
           </Grid>
 
-          {options.map((option) => (
+          {options && options.map((option) => (
             <Grid
               item
               key={option.op}
-              id={`${option.class}-${option.op}`}
+              id={option.op}
               display="flex"
               justifyContent="space-around"
-              border={2}
+              border={1}
               borderColor="#737373"
-              borderRadius={3}
+              borderRadius={4}
               py={2}
               my={1}
               sx={{
-                bgcolor: `${option.bgcolor}`,
+                bgcolor: `white`,
                 transition: "transform 0.3s ease-in-out",
                 "&:hover": {
                   transform: "scale(1.05)",
                   transitionDelay: "0.02s",
                 },
               }}
-              onClick={() =>
-                correctAnswer(option.class, `${option.class}-${option.op}`)
-              }
+              onClick={() => correctAnswer(option.class, option.op)}
             >
               {option.op}
             </Grid>
@@ -191,13 +193,13 @@ const QuestionsDash: React.FC = () => {
           {answered ? (
             <Button
               variant="contained"
-              sx={{ my: 3, py: 1 }}
+              sx={{ my: 3, py: 1, borderRadius: 4 }}
               onClick={handleNext}
             >
               Next
             </Button>
           ) : (
-            <Button variant="contained" disabled sx={{ my: 3, py: 1 }}>
+            <Button variant="contained" disabled sx={{ my: 3, py: 1, borderRadius: 4  }}>
               Next
             </Button>
           )}
@@ -228,7 +230,7 @@ const QuestionsDash: React.FC = () => {
           <AlertTitle>Loading...</AlertTitle>
         </Alert>
         <NavLink to={"/"} style={{ textDecoration: "none", color: "inherit" }}>
-          <Button variant="contained" color="info" sx={{ my: 3, py: 1 }}>
+          <Button variant="contained" color="info" sx={{ my: 3, py: 1, borderRadius: 4  }}>
             Go to Home Page
           </Button>
         </NavLink>
