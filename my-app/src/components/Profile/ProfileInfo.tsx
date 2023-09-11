@@ -12,6 +12,8 @@ import { profile } from "../../data/data";
 import Avatar from "@mui/material/Avatar";
 import picture from "../../data/ProfileIMG.png";
 import Paper from "@mui/material/Paper";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
 
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -108,7 +110,19 @@ const Profile: React.FC = () => {
       </Grid>
     );
   }
-  return <div>Loading...</div>;
+  return         <Alert
+  severity="info"
+  sx={{
+    width: "80%",
+    mt: 10,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  }}
+>
+  <AlertTitle>Loading...</AlertTitle>
+</Alert>;
 };
 
 export default Profile;
