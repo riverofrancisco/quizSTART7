@@ -22,3 +22,8 @@ Para comenzar a trabajar con esta aplicación, sigue los siguientes pasos:
    npm start
 
 ¡Listo! Tu aplicación ahora está inicializada y lista para su desarrollo.
+
+_______________________________
+
+[Deployment](https://frivero-quiz-demo.vercel.app/)
+
