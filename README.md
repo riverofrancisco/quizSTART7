@@ -25,5 +25,5 @@ Para comenzar a trabajar con esta aplicación, sigue los siguientes pasos:
 
 _______________________________
 
-[Deployment](https://frivero-quiz-demo.vercel.app/)
+Link a la App: [Deployment](https://frivero-quiz-demo.vercel.app/)
 
